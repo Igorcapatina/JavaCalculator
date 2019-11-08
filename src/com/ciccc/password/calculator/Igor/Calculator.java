@@ -6,9 +6,51 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Calculator {
+    public void Enabe(){
+        Screen.setEnabled(true);
+        btnMultiplide.setEnabled(true);
+        btnTwo.setEnabled(true);
+        btnThree.setEnabled(true);
+        btnFive.setEnabled(true);
+        btnEight.setEnabled(true);
+        btnPoint.setEnabled(true);
+        btnPlus.setEnabled(true);
+        btnSix.setEnabled(true);
+        btnNine.setEnabled(true);
+        btnDelete.setEnabled(true);
+        btnMinus.setEnabled(true);
+        btnDevide.setEnabled(true);
+        btnEqual.setEnabled(true);
+        btnOne.setEnabled(true);
+        btnFour.setEnabled(true);
+        btnSeven.setEnabled(true);
+        btnZero.setEnabled(true);
+    }
+
+    public void Disable(){
+       Screen.setEnabled(false);
+          btnMultiplide.setEnabled(false);
+          btnTwo.setEnabled(false);
+          btnThree.setEnabled(false);
+          btnFive.setEnabled(false);
+          btnEight.setEnabled(false);
+          btnPoint.setEnabled(false);
+          btnPlus.setEnabled(false);
+          btnSix.setEnabled(false);
+          btnNine.setEnabled(false);
+          btnDelete.setEnabled(false);
+          btnMinus.setEnabled(false);
+          btnDevide.setEnabled(false);
+          btnEqual.setEnabled(false);
+          btnOne.setEnabled(false);
+          btnFour.setEnabled(false);
+          btnSeven.setEnabled(false);
+          btnZero.setEnabled(false);
+    }
 
     private double total1 = 0.0;
     private double total2 = 0.0;
+    private char math_operator;
 
     private JPanel CalculatorJAVA;
     private JFormattedTextField Screen;
@@ -31,6 +73,12 @@ public class Calculator {
     private JButton btnZero;
     private JRadioButton rdOn;
     private JRadioButton rdOff;
+
+    private void getOperator (String btnText){
+        math_operator = btnText.charAt(0);
+        total1 = total1 + Double.parseDouble(Screen.getText());
+        Screen.setText("");
+    }
 
     public Calculator() {
         btnOne.addActionListener(new ActionListener() {
@@ -124,14 +172,27 @@ public class Calculator {
         btnPlus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                total1 = total1 + Double.parseDouble(Screen.getText());
-                Screen.setText("");
+                String button_text = btnPlus.getText();
+                getOperator(button_text);
             }
         });
         btnEqual.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                total2 = total1 + Double.parseDouble(Screen.getText());
+                switch (math_operator) {
+                    case '+':
+                    total2 = total1 + Double.parseDouble(Screen.getText());
+                    break;
+                    case '-':
+                    total2 = total1 - Double.parseDouble(Screen.getText());
+                    break;
+                    case '*':
+                    total2 = total1 * Double.parseDouble(Screen.getText());
+                    break;
+                    case '/':
+                    total2 = total1 / Double.parseDouble(Screen.getText());
+                    break;
+                }
                 Screen.setText(Double.toString(total2));
                 total1 = 0;
             }
@@ -147,8 +208,34 @@ public class Calculator {
         btnMinus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                total1 = total1 + Double.parseDouble(Screen.getText());
-                Screen.setText("");
+                String button_text = btnMinus.getText();
+                getOperator(button_text);
+            }
+        });
+        btnDevide.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String button_text = btnDevide.getText();
+                getOperator(button_text);
+            }
+        });
+        btnMultiplide.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String button_text = btnMultiplide.getText();
+                getOperator(button_text);
+            }
+        });
+        rdOff.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Disable();
+            }
+        });
+        rdOn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Enabe();
             }
         });
     }
